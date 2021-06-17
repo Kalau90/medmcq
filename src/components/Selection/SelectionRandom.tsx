@@ -10,7 +10,6 @@ const SelectionRandom: React.FC<SelectionRandomProps> = () => {
     <div>
       <SelectionNSelector />
       <Divider />
-      <SelectionSearch />
     </div>
   );
 };
