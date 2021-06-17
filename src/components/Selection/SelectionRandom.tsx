@@ -9,8 +9,8 @@ const SelectionRandom: React.FC<SelectionRandomProps> = () => {
   return (
     <div>
       <SelectionNSelector />
-      <Divider />
-      <SelectionSearch />
+      {/* <Divider />
+      <SelectionSearch /> */}
     </div>
   );
 };
