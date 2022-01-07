@@ -112,7 +112,7 @@ export const resolvers: Resolvers = {
         return query.findByIds(shareObjs.map((obj) => obj.questionId));
       }
       if (commentIds)
-        return QuestionComment.query().findByIds(commentIds).select('questionId as id');
+        return []; // QuestionComment.query().findByIds(commentIds).select('questionId as id');
 
       query = query
         .join('semesterExamSet as examSet', 'question.examSetId', 'examSet.id')
@@ -137,27 +137,27 @@ export const resolvers: Resolvers = {
       query = query.orderByRaw('rand()');
 
       if (ctx.user) {
-        if (!n || n > 600) n = 600; // Man må ikke hente mere end 600, hvis man er logget ind
+        if (!n || n > 100) n = 100; // Man må ikke hente mere end 600, hvis man er logget ind
       } else {
-        if (!n || n > 300) n = 300; // Man må ikke hente mere end 300, hvis man ikke er logget ind
+        if (!n || n > 50) n = 50; // Man må ikke hente mere end 300, hvis man ikke er logget ind
       }
 
       query = query.limit(n);
 
       if (specialtyIds && specialtyIds.length > 0) {
-        const votes = await QuestionSpecialtyVote.query()
+        const votes = []; /*await QuestionSpecialtyVote.query()
           .whereIn('specialtyId', specialtyIds)
           .groupBy('questionId')
           .sum('value as votes')
           .having('votes', '>', '-1')
-          .select('questionId');
+          .select('questionId');*/
 
-        query = query
+        /*query = query
           .join('questionSpecialtyVote as specialtyVote', 'question.id', 'specialtyVote.questionId')
           .whereIn(
             'question.id',
             votes.map((specialtyVote) => specialtyVote.questionId)
-          );
+          );*/
       }
 
       if (tagIds && tagIds.length > 0) {
@@ -341,25 +341,29 @@ export const resolvers: Resolvers = {
       return { id: examSet.id };
     },
     publicComments: async ({ id }, _, ctx) => {
-      const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
-      return publicComments.map((pc) => ({ id: pc.id }));
+      return [];
+      /*const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
+      return publicComments.map((pc) => ({ id: pc.id }));*/
     },
     privateComments: async ({ id }, args, ctx) => {
-      if (!ctx.user) return [];
+      return [];
+      /*if (!ctx.user) return [];
       let privateComments = await Comment.query().where({
         questionId: id,
         private: 1,
         userId: ctx.user.id
       });
-      return privateComments.map((comment) => ({ id: comment.id }));
+      return privateComments.map((comment) => ({ id: comment.id }));*/
     },
     specialtyVotes: async ({ id }, args, ctx) => {
-      const specialtyVotes = await QuestionSpecialtyVote.query().where('questionId', id);
-      return specialtyVotes.map((sv) => ({ id: sv.id }));
+      return [];
+      /*const specialtyVotes = await QuestionSpecialtyVote.query().where('questionId', id);
+      return specialtyVotes.map((sv) => ({ id: sv.id }));*/
     },
     tagVotes: async ({ id }, _, ctx) => {
-      const tagVotes = await QuestionTagVote.query().where('questionId', id);
-      return tagVotes.map((tv) => ({ id: tv.id }));
+      return [];
+      /*const tagVotes = await QuestionTagVote.query().where('questionId', id);
+      return tagVotes.map((tv) => ({ id: tv.id }));*/
     },
     createdAt: async ({ id }, args, ctx) => {
       const question = await ctx.questionLoader.load(id);
@@ -370,7 +374,8 @@ export const resolvers: Resolvers = {
       return question.updatedAt.toISOString();
     },
     specialties: async ({ id }, args, ctx) => {
-      const specialties = await QuestionSpecialtyVote.query()
+      return [];
+      /*const specialties = await QuestionSpecialtyVote.query()
         .where({ questionId: id })
         .groupBy('specialtyId')
         .sum('value as votes')
@@ -378,10 +383,11 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('specialtyId');
 
-      return specialties.map((s) => ({ id: s.specialtyId }));
+      return specialties.map((s) => ({ id: s.specialtyId }));*/
     },
     tags: async ({ id }, args, ctx) => {
-      const tags = await QuestionTagVote.query()
+      return [];
+      /*const tags = await QuestionTagVote.query()
         .where({ questionId: id })
         .groupBy('tagId')
         .sum('value as votes')
@@ -389,7 +395,7 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('tagId');
 
-      return tags.map((t) => ({ id: t.tagId }));
+      return tags.map((t) => ({ id: t.tagId }));*/
     },
     user: async ({ id }, args, ctx) => {
       const question = await ctx.questionLoader.load(id);
