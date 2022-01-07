@@ -161,7 +161,7 @@ export const resolvers: Resolvers = {
       }
 
       if (tagIds && tagIds.length > 0) {
-        const votes = await QuestionTagVote.query()
+        const votes = [] /*await QuestionTagVote.query()
           .whereIn('tagId', tagIds)
           .groupBy('questionId')
           .sum('value as votes')
@@ -173,7 +173,7 @@ export const resolvers: Resolvers = {
           .whereIn(
             'question.id',
             votes.map((vote) => vote.questionId)
-          );
+          );*/
       }
 
       if (ctx.user) {
