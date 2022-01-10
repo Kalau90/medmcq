@@ -137,51 +137,59 @@ export const resolvers: Resolvers = {
       query = query.orderByRaw('rand()');
 
       if (ctx.user) {
-        if (!n || n > 100) n = 100; // Man må ikke hente mere end 600, hvis man er logget ind
+        if (!n || n > 600) n = 600; // Man må ikke hente mere end 600, hvis man er logget ind
       } else {
-        if (!n || n > 100) n = 100; // Man må ikke hente mere end 300, hvis man ikke er logget ind
+        if (!n || n > 300) n = 300; // Man må ikke hente mere end 300, hvis man ikke er logget ind
       }
 
       query = query.limit(n);
 
       if (specialtyIds && specialtyIds.length > 0) {
-        const votes = []; await QuestionSpecialtyVote.query()
+        console.log(new Date().toUTCString(), "Speciality id lookup")
+        const votes = await QuestionSpecialtyVote.query()
           .whereIn('specialtyId', specialtyIds)
           .groupBy('questionId')
           .sum('value as votes')
           .having('votes', '>', '-1')
-          .select('questionId');
+          .select('questionId').debug();
 
+        console.log(new Date().toUTCString(), "Speciality id join starts")
         query = query
           .join('questionSpecialtyVote as specialtyVote', 'question.id', 'specialtyVote.questionId')
           .whereIn(
             'question.id',
             votes.map((specialtyVote) => specialtyVote.questionId)
           );
+        console.log(new Date().toUTCString(), "Speciality id finished")
       }
 
       if (tagIds && tagIds.length > 0) {
-        const votes = [] /*await QuestionTagVote.query()
+        console.log(new Date().toUTCString(), "Tags id lookup")
+        const votes = await QuestionTagVote.query()
           .whereIn('tagId', tagIds)
           .groupBy('questionId')
           .sum('value as votes')
           .having('votes', '>', '-1')
           .select('questionId');
 
+        console.log(new Date().toUTCString(), "Tags id join")
         query = query
           .join('questionTagVote as tagVote', 'question.id', 'tagVote.questionId')
           .whereIn(
             'question.id',
             votes.map((vote) => vote.questionId)
-          );*/
+          );
+        console.log(new Date().toUTCString(), "Tags id ended")
       }
 
       if (ctx.user) {
+        console.log(new Date().toUTCString(), "Ignored lookup")
         const ignoredQuestions = await QuestionIgnores.query().where({ userId: ctx.user.id });
         query = query.whereNotIn(
           'question.id',
           ignoredQuestions.map((q) => q.questionId)
         );
+        console.log(new Date().toUTCString(), "Ignored ended")
       }
 
       if (ctx.user && onlyWrong) {
@@ -202,7 +210,10 @@ export const resolvers: Resolvers = {
         );
       }
 
-      const questions = await query.groupBy('question.id').select('question.id as id');
+      console.log(new Date().toUTCString(), "Getting questions")
+      const questions = await query.groupBy('question.id').select('question.id as id').debug();
+
+      console.log(new Date().toUTCString(), "Return questions")
       return questions.map((question) => ({ id: question.id }));
     }
   },
