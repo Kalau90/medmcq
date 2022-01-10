@@ -112,7 +112,7 @@ export const resolvers: Resolvers = {
         return query.findByIds(shareObjs.map((obj) => obj.questionId));
       }
       if (commentIds)
-        return []; // QuestionComment.query().findByIds(commentIds).select('questionId as id');
+        return QuestionComment.query().findByIds(commentIds).select('questionId as id');
 
       query = query
         .join('semesterExamSet as examSet', 'question.examSetId', 'examSet.id')
@@ -341,19 +341,17 @@ export const resolvers: Resolvers = {
       return { id: examSet.id };
     },
     publicComments: async ({ id }, _, ctx) => {
-      return [];
-      /*const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
-      return publicComments.map((pc) => ({ id: pc.id }));*/
+      const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
+      return publicComments.map((pc) => ({ id: pc.id }));
     },
     privateComments: async ({ id }, args, ctx) => {
-      return [];
-      /*if (!ctx.user) return [];
+      if (!ctx.user) return [];
       let privateComments = await Comment.query().where({
         questionId: id,
         private: 1,
         userId: ctx.user.id
       });
-      return privateComments.map((comment) => ({ id: comment.id }));*/
+      return privateComments.map((comment) => ({ id: comment.id }));
     },
     specialtyVotes: async ({ id }, args, ctx) => {
       const specialtyVotes = await QuestionSpecialtyVote.query().where('questionId', id);
