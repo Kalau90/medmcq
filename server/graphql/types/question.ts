@@ -449,8 +449,9 @@ export const resolvers: Resolvers = {
         .uniqBy((answer) => answer.userId)
         .value();
       const answeredThisCount = firstTimeAnswers.filter((ua) => ua.answerId === id);
-      const correctPercent = Math.round((answeredThisCount.length / firstTimeAnswers.length) * 100);*/
-      return answer.percentage;
+      const correctPercent = Math.round((answeredThisCount.length / firstTimeAnswers.length) * 100);
+      return correctPercent; */
+      return answer.percentage || null;
     },
     question: async ({ id }, _, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);

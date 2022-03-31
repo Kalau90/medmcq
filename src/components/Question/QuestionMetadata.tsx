@@ -38,6 +38,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
       .flatMap((s) => s.examSets)
       .find((examSet) => examSet.id === question.examSet.id)
   );
+  console.log("WHat's in question?",question)
   const specialties = useSelector(
     (state: ReduxState) =>
       state.metadata.semesters.find((semester) => semester.id === semesterId)?.specialties
