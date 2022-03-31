@@ -428,8 +428,8 @@ export const resolvers: Resolvers = {
       return answer.index;
     },
     explanation: async ({ id }, _, ctx) => {
-      const answer = await ctx.questionAnswersLoader.load(id);
-      return answer.explanation;
+      //const answer = await ctx.questionAnswersLoader.load(id);
+      return "";//answer.explanation;
     },
     isCorrect: async ({ id }, _, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);
@@ -437,7 +437,7 @@ export const resolvers: Resolvers = {
     },
     correctPercent: async ({ id }, args, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);
-      const questionAnswers = await ctx.questionAnswersByQuestionLoader.load(answer.questionId);
+      /*const questionAnswers = await ctx.questionAnswersByQuestionLoader.load(answer.questionId);
       let allUserAnswers = await QuestionUserAnswer.query().whereIn(
         'answerId',
         questionAnswers.map((qa) => qa.id)
@@ -449,8 +449,8 @@ export const resolvers: Resolvers = {
         .uniqBy((answer) => answer.userId)
         .value();
       const answeredThisCount = firstTimeAnswers.filter((ua) => ua.answerId === id);
-      const correctPercent = Math.round((answeredThisCount.length / firstTimeAnswers.length) * 100);
-      return correctPercent;
+      const correctPercent = Math.round((answeredThisCount.length / firstTimeAnswers.length) * 100);*/
+      return answer.percentage;
     },
     question: async ({ id }, _, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);

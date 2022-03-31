@@ -7,6 +7,7 @@ interface QuestionAnswer {
   isCorrect: 1 | 0;
   questionId: number;
   explanation: string;
+  percentage: number;
 }
 
 class QuestionAnswer extends Model {
