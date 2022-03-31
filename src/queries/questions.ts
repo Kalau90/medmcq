@@ -28,6 +28,7 @@ export const fetchFilteredQuestions = gql`
       answer2
       answer3
       examSetQno
+      examSetInfo
       semester {
         id
         value
@@ -63,6 +64,7 @@ export const getQuestionsFromIds = gql`
       answer2
       answer3
       examSetQno
+      examSetInfo
       semester {
         id
         value

@@ -14,6 +14,7 @@ import ShareLink from 'models/shareLink';
 import { permitAdmin } from 'graphql/utils';
 import QuestionAnswer from 'models/questionAnswer.model';
 import QuestionIgnores from 'models/questionIgnores.model';
+import ExamSet from 'models/exam_set';
 
 export const typeDefs = gql`
   extend type Query {
@@ -48,6 +49,7 @@ export const typeDefs = gql`
     images: [String]
     oldId: String
     examSetQno: Int
+    examSetInfo: ExamSet
     publicComments: [Comment]
     privateComments: [Comment]
     specialtyVotes: [SpecialtyVote]
@@ -137,9 +139,9 @@ export const resolvers: Resolvers = {
       query = query.orderByRaw('rand()');
 
       if (ctx.user) {
-        if (!n || n > 600) n = 600; // Man må ikke hente mere end 600, hvis man er logget ind
+        if (!n || n > 100) n = 100; // Man må ikke hente mere end 600, hvis man er logget ind
       } else {
-        if (!n || n > 300) n = 300; // Man må ikke hente mere end 300, hvis man ikke er logget ind
+        if (!n || n > 80) n = 80; // Man må ikke hente mere end 300, hvis man ikke er logget ind
       }
 
       query = query.limit(n);
@@ -351,6 +353,23 @@ export const resolvers: Resolvers = {
       const examSet = await ctx.examSetsLoader.load(question.examSetId);
       return { id: examSet.id };
     },
+    examSetInfo: async ({ id }, args, ctx) => {
+      const question = await ctx.questionLoader.load(id);
+      const examSet = await ctx.examSetsLoader.load(question.examSetId);
+      const setinfo = await ExamSet.query().where({
+        id: examSet.id
+      }).limit(1)
+      console.log("SE HER",setinfo)
+      return {
+        id: setinfo[0].id,
+        year: setinfo[0].year,
+        season: setinfo[0].season,
+        semesterId: setinfo[0].semesterId,
+        reexam: setinfo[0].reexam,
+        hadHelp: setinfo[0].hadHelp,
+        name: setinfo[0].name
+      }//.year + setinfo[0].season + setinfo[0].semesterId;
+    },
     publicComments: async ({ id }, _, ctx) => {
       const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
       return publicComments.map((pc) => ({ id: pc.id }));
@@ -391,6 +410,16 @@ export const resolvers: Resolvers = {
 
       return specialties.map((s) => ({ id: s.specialtyId }));
     },
+    /*specialtiesInfo: async ({ id }, args, ctx) => {
+      const specialties = await QuestionSpecialtyVote.query()
+        .where({ questionId: id })
+        .groupBy('specialtyId')
+        .sum('value as votes')
+        .having('votes', '>', '-1')
+        .orderBy('votes', 'desc')
+
+      return specialties;
+    },*/
     tags: async ({ id }, args, ctx) => {
       const tags = await QuestionTagVote.query()
         .where({ questionId: id })

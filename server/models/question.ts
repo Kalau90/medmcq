@@ -7,6 +7,7 @@ interface Question {
   image: string;
   examSetQno: number;
   examSetId: number;
+  examSetInfo: any;
   userId: number;
   createdAt: Date;
   updatedAt: Date;

@@ -33,11 +33,11 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   const question = useSelector((state: ReduxState) => state.questions.questions[questionIndex]);
   const isEditing = useSelector((state: ReduxState) => state.questions.isEditing);
   const semesterId = question.examSet.semester.id;
-  const examSet = useSelector((state: ReduxState) =>
+  /*const examSet = useSelector((state: ReduxState) =>
     state.metadata.semesters
       .flatMap((s) => s.examSets)
       .find((examSet) => examSet.id === question.examSet.id)
-  );
+  );*/
   console.log("WHat's in question?",question)
   const specialties = useSelector(
     (state: ReduxState) =>
@@ -96,23 +96,24 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   };
 
   const setName = () => {
-    if (examSet.name) {
-      return <p>{examSet.name}</p>;
+    console.log("What's inside",question.examSetInfo)
+    if (question.examSetInfo.name) {
+      return <p>{question.examSetInfo.name}</p>;
     }
     return (
       <div>
         <Translate id="questionMetadata.set" />{' '}
-        {examSet.season === 'F' ? (
+        {question.examSetInfo.season === 'F' ? (
           <Translate id="questionMetadata.set_season.F" />
         ) : (
           <Translate id="questionMetadata.set_season.E" />
         )}{' '}
-        {examSet.year} <QuestionHadHelpLabel hadHelp={examSet.hadHelp} />
+        {question.examSetInfo.year} <QuestionHadHelpLabel hadHelp={question.examSetInfo.hadHelp} />
       </div>
     );
   };
 
-  if (!examSet) return <LoadingPage />;
+  if (!question.examSetInfo) return <LoadingPage />;
   return (
     <Grid celled stackable columns="equal">
       <Grid.Column>

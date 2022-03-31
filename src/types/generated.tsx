@@ -225,6 +225,7 @@ export type Question = {
   images?: Maybe<Array<Maybe<Scalars['String']>>>;
   oldId?: Maybe<Scalars['String']>;
   examSetQno?: Maybe<Scalars['Int']>;
+  examSetInfo?: Maybe<ExamSet>;
   publicComments?: Maybe<Array<Maybe<Comment>>>;
   privateComments?: Maybe<Array<Maybe<Comment>>>;
   specialtyVotes?: Maybe<Array<Maybe<SpecialtyVote>>>;
