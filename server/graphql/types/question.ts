@@ -15,6 +15,8 @@ import { permitAdmin } from 'graphql/utils';
 import QuestionAnswer from 'models/questionAnswer.model';
 import QuestionIgnores from 'models/questionIgnores.model';
 import ExamSet from 'models/exam_set';
+import Specialty from 'models/specialty';
+import Tag from 'models/tag';
 
 export const typeDefs = gql`
   extend type Query {
@@ -55,7 +57,9 @@ export const typeDefs = gql`
     specialtyVotes: [SpecialtyVote]
     tagVotes: [TagVote]
     specialties: [Specialty]
+    specialtiesInfo: [Specialty]
     tags: [Tag]
+    tagsInfo: [Tag]
     examSet: ExamSet
     createdAt: String
     updatedAt: String
@@ -359,7 +363,6 @@ export const resolvers: Resolvers = {
       const setinfo = await ExamSet.query().where({
         id: examSet.id
       }).limit(1)
-      console.log("SE HER",setinfo)
       return {
         id: setinfo[0].id,
         year: setinfo[0].year,
@@ -410,17 +413,31 @@ export const resolvers: Resolvers = {
 
       return specialties.map((s) => ({ id: s.specialtyId }));
     },
-    /*specialtiesInfo: async ({ id }, args, ctx) => {
-      const specialties = await QuestionSpecialtyVote.query()
+    specialtiesInfo: async ({ id }, args, ctx) => {
+      const specialtyVotes = await QuestionSpecialtyVote.query()
         .where({ questionId: id })
         .groupBy('specialtyId')
         .sum('value as votes')
         .having('votes', '>', '-1')
         .orderBy('votes', 'desc')
+        .select('specialtyId');
 
+      const specialtiesIds = specialtyVotes.map((s) => ( s.specialtyId ));
+
+      let specialties = await Specialty.query()
+        .whereIn( "id", specialtiesIds )
+
+      /*const specialties0 = specialties.map((v)=>{
+        return {
+          id: v.id,
+          name: "LOL"+v.name
+        }
+      })
+      console.log("WHat's in specialities?",specialties,specialties0)*/
       return specialties;
-    },*/
+    },
     tags: async ({ id }, args, ctx) => {
+      console.log("I'm checking tags")
       const tags = await QuestionTagVote.query()
         .where({ questionId: id })
         .groupBy('tagId')
@@ -430,6 +447,20 @@ export const resolvers: Resolvers = {
         .select('tagId');
 
       return tags.map((t) => ({ id: t.tagId }));
+    },
+    tagsInfo: async ({ id }, args, ctx) => {
+      console.log("HERE HERE HERE HERE")
+      const tagsVotes = await QuestionTagVote.query()
+        .where({ questionId: id })
+      console.log("Votes",tagsVotes)
+
+      const tagsIds = tagsVotes.map((t) => ( t.tagId ));
+
+      let tags = await Tag.query()
+        .whereIn( "id", tagsIds )
+      console.log("What's tags",tags,tagsIds)
+
+      return tags;
     },
     user: async ({ id }, args, ctx) => {
       const question = await ctx.questionLoader.load(id);

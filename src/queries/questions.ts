@@ -41,8 +41,16 @@ export const fetchFilteredQuestions = gql`
       specialties {
         specialtyId
       }
+      specialtiesInfo {
+        id
+        name
+      }
       tags {
         tagId
+      }
+      tagsInfo {
+        id
+        name
       }
       examSet {
         year
@@ -77,8 +85,16 @@ export const getQuestionsFromIds = gql`
       specialties {
         specialtyId
       }
+      specialtiesInfo {
+        id
+        name
+      }
       tags {
         tagId
+      }
+      tagsInfo {
+        id
+        name
       }
       examSet {
         year

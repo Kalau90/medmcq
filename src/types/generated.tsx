@@ -231,7 +231,9 @@ export type Question = {
   specialtyVotes?: Maybe<Array<Maybe<SpecialtyVote>>>;
   tagVotes?: Maybe<Array<Maybe<TagVote>>>;
   specialties?: Maybe<Array<Maybe<Specialty>>>;
+  specialtiesInfo?: Maybe<Array<Maybe<Specialty>>>;
   tags?: Maybe<Array<Maybe<Tag>>>;
+  tagsInfo?: Maybe<Array<Maybe<Tag>>>;
   examSet?: Maybe<ExamSet>;
   createdAt?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['String']>;
