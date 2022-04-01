@@ -403,7 +403,7 @@ export const resolvers: Resolvers = {
       return question.updatedAt.toISOString();
     },
     specialties: async ({ id }, args, ctx) => {
-      const specialties = await QuestionSpecialtyVote.query()
+      /*const specialties = await QuestionSpecialtyVote.query()
         .where({ questionId: id })
         .groupBy('specialtyId')
         .sum('value as votes')
@@ -411,7 +411,8 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('specialtyId');
 
-      return specialties.map((s) => ({ id: s.specialtyId }));
+      return specialties.map((s) => ({ id: s.specialtyId }));*/
+      return new Array();
     },
     specialtiesInfo: async ({ id }, args, ctx) => {
       const specialtyVotes = await QuestionSpecialtyVote.query()
@@ -437,7 +438,7 @@ export const resolvers: Resolvers = {
       return specialties;
     },
     tags: async ({ id }, args, ctx) => {
-      console.log("I'm checking tags")
+      /*console.log("I'm checking tags")
       const tags = await QuestionTagVote.query()
         .where({ questionId: id })
         .groupBy('tagId')
@@ -446,7 +447,8 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('tagId');
 
-      return tags.map((t) => ({ id: t.tagId }));
+      return tags.map((t) => ({ id: t.tagId }));*/
+      return new Array();
     },
     tagsInfo: async ({ id }, args, ctx) => {
       console.log("HERE HERE HERE HERE")
