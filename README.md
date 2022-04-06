@@ -61,3 +61,14 @@ Når du redigerer i typeDefs på graphQL API'en, skal du køre `npm run generate
   * **utils** - overordnede menustruktur, javascript til smoothscrolling i quiz, validering
 * docker-compose.yml - definerer det miljø som Docker åbner inkl hvilke porte og volumes
 * Dockerfile - kommandoerne som køres ved `docker-compose up`
+
+# "Quick" and dirty crash course
+## For at opdatere database-kald:
+1. **/server/graphql/types**
+	- øverst ligger typedefs, som bestemmer types for det data, der hentes - refererer til definitionerne lavet i **/server/models/**
+	- nederst ligger de SQL-metoder, som anvendes ind i databasen - disse afhænger af models lavet i objection i **/server/models/**, inkl. mulighed for nesting i den enkelte graph
+2. **/server/models/** - her kan nye kolonner tilføjes til objection
+3. **/server/types/resolvers-types.js** - vær obs på at dette er opdateret!!
+4. **/src/classes/** - her defineres de graphql-kald, som foretages + referencer til reducers, som kan ændre databasen
+5. **/src/queries/** - også nogle graphQL-kald - måske er det dem, der kaldes af API'en??
+6. **/src/components/** - selve indholdet omsættes til HTML her
