@@ -151,7 +151,6 @@ export const resolvers: Resolvers = {
       query = query.limit(n);
 
       if (specialtyIds && specialtyIds.length > 0) {
-        console.log(new Date().toUTCString(), "Speciality id lookup")
         const votes = await QuestionSpecialtyVote.query()
           .whereIn('specialtyId', specialtyIds)
           .groupBy('questionId')
@@ -159,18 +158,15 @@ export const resolvers: Resolvers = {
           .having('votes', '>', '-1')
           .select('questionId').debug();
 
-        console.log(new Date().toUTCString(), "Speciality id join starts")
         query = query
           .join('questionSpecialtyVote as specialtyVote', 'question.id', 'specialtyVote.questionId')
           .whereIn(
             'question.id',
             votes.map((specialtyVote) => specialtyVote.questionId)
           );
-        console.log(new Date().toUTCString(), "Speciality id finished")
       }
 
       if (tagIds && tagIds.length > 0) {
-        console.log(new Date().toUTCString(), "Tags id lookup")
         const votes = await QuestionTagVote.query()
           .whereIn('tagId', tagIds)
           .groupBy('questionId')
@@ -178,24 +174,20 @@ export const resolvers: Resolvers = {
           .having('votes', '>', '-1')
           .select('questionId');
 
-        console.log(new Date().toUTCString(), "Tags id join")
         query = query
           .join('questionTagVote as tagVote', 'question.id', 'tagVote.questionId')
           .whereIn(
             'question.id',
             votes.map((vote) => vote.questionId)
           );
-        console.log(new Date().toUTCString(), "Tags id ended")
       }
 
       if (ctx.user) {
-        console.log(new Date().toUTCString(), "Ignored lookup")
         const ignoredQuestions = await QuestionIgnores.query().where({ userId: ctx.user.id });
         query = query.whereNotIn(
           'question.id',
           ignoredQuestions.map((q) => q.questionId)
         );
-        console.log(new Date().toUTCString(), "Ignored ended")
       }
 
       if (ctx.user && onlyWrong) {
@@ -216,10 +208,8 @@ export const resolvers: Resolvers = {
         );
       }
 
-      console.log(new Date().toUTCString(), "Getting questions")
       const questions = await query.groupBy('question.id').select('question.id as id').debug();
 
-      console.log(new Date().toUTCString(), "Return questions")
       return questions.map((question) => ({ id: question.id }));
     }
   },
@@ -403,7 +393,7 @@ export const resolvers: Resolvers = {
       return question.updatedAt.toISOString();
     },
     specialties: async ({ id }, args, ctx) => {
-      /*const specialties = await QuestionSpecialtyVote.query()
+      const specialties = await QuestionSpecialtyVote.query()
         .where({ questionId: id })
         .groupBy('specialtyId')
         .sum('value as votes')
@@ -411,10 +401,13 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('specialtyId');
 
-      return specialties.map((s) => ({ id: s.specialtyId }));*/
-      return new Array();
+      return specialties.map(async(s) => {
+        let specialtyName = await Specialty.query()
+          .where( "id", s.specialtyId ).select("name").limit(1)
+        return { id: s.specialtyId, specialtyName: specialtyName }
+      });
     },
-    specialtiesInfo: async ({ id }, args, ctx) => {
+    /*specialtiesInfo: async ({ id }, args, ctx) => {
       const specialtyVotes = await QuestionSpecialtyVote.query()
         .where({ questionId: id })
         .groupBy('specialtyId')
@@ -433,12 +426,10 @@ export const resolvers: Resolvers = {
           id: v.id,
           name: "LOL"+v.name
         }
-      })
-      console.log("WHat's in specialities?",specialties,specialties0)*/
-      return specialties;
-    },
+      })*/
+      //return specialties;
+    //},
     tags: async ({ id }, args, ctx) => {
-      /*console.log("I'm checking tags")
       const tags = await QuestionTagVote.query()
         .where({ questionId: id })
         .groupBy('tagId')
@@ -447,20 +438,25 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('tagId');
 
-      return tags.map((t) => ({ id: t.tagId }));*/
-      return new Array();
+      return tags.map(async (t) => {
+        let tagName = await Tag.query()
+          .where("id", t.tagId).select("name").limit(1)
+        return { id: t.tagId, tagName: tagName }
+      });
+      /*return specialties.map(async(s) => {
+        let specialtyName = await Specialty.query()
+          .where( "id", s.specialtyId ).select("name").limit(1)
+        return { id: s.specialtyId, specialtyName: specialtyName }
+      });*/
     },
     tagsInfo: async ({ id }, args, ctx) => {
-      console.log("HERE HERE HERE HERE")
       const tagsVotes = await QuestionTagVote.query()
         .where({ questionId: id })
-      console.log("Votes",tagsVotes)
 
       const tagsIds = tagsVotes.map((t) => ( t.tagId ));
 
       let tags = await Tag.query()
         .whereIn( "id", tagsIds )
-      console.log("What's tags",tags,tagsIds)
 
       return tags;
     },

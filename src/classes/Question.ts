@@ -47,18 +47,13 @@ class Question {
       }
       specialties {
         id
-      }
-      specialtiesInfo {
-        id
         name
       }
       tags {
         id
-      }
-      tagsInfo {
-        id
         name
       }
+      
       specialtyVotes {
         ...SpecialtyVote
       }

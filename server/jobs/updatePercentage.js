@@ -11,20 +11,16 @@ export const updatePercentage = async () => {
     	for(let q of questions){
 	    	const answers = await QuestionAnswer.query().where("question_id", "=", q.id).select("id");
 	    	const answer_ids = answers.map((v) => { return v.id });
-	    	console.log("IDS",answer_ids);
 	    	const all = await QuestionUserAnswer.query().whereIn("answer_id", answer_ids).select(["id", "created_at", "answer_id", "user_id"]).orderBy("created_at", "asc");
-            //console.log("A", all)
 	    	//const first_answers = _.uniqBy(all, "user_id");
             const first_answers = _(all)
                 .uniqBy((answer) => answer.userId)
                 .value();
-	    	//console.log(first_answers);
 	    	const n_total = first_answers.length;
 	    	for(let a of answer_ids){
 	    		const local = first_answers.filter((v) => { return v.answerId == a } )
 	    		const n_local = local.length;
 	    		const percentage = Math.round((n_local/n_total)*100)
-	    		console.log(n_local, n_total, percentage);
                 if(percentage){
                     const upd = await QuestionAnswer.query().update({ "percentage": percentage}).where("id", "=", a);
                 }else{

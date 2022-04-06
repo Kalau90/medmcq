@@ -38,20 +38,27 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
       .flatMap((s) => s.examSets)
       .find((examSet) => examSet.id === question.examSet.id)
   );*/
-  console.log("QUESTION",question)
-  const specialties = question.specialtiesInfo; /*useSelector(
-    (state: ReduxState) =>
-      state.metadata.semesters.find((semester) => semester.id === semesterId)?.specialties
+  //console.log("QUESTION",question)
+  /*const specialties = useSelector(
+    (state: ReduxState) => {
+      console.log("QI", questionIndex);
+      console.log("WUT",state.questions.questions[questionIndex])
+      console.log("Q", question)
+      return state.questions.questions[questionIndex].specialtiesInfo
+    }
+    
+      //state.metadata.semesters.find((semester) => semester.id === semesterId)?.specialties
   );*/
   const answers = useSelector((state: ReduxState) =>
     state.quiz.userAnswers.filter((ua) => question.answers.some((a) => a.id === ua.answerId))
   );
   const specialtyVotes = question.specialtyVotes;
   const tagVotes = question.tagVotes;
-  const tags = question.tagsInfo;/*useSelector(
+  const tags = useSelector(
     (state: ReduxState) =>
-      state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
-  );*/
+      state.questions.questions[questionIndex].tagsInfo
+      //state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
+  );
   const user = useSelector((state: ReduxState) => state.auth.user);
   const [addingTagError, setAddingTagError] = useState('');
 
@@ -113,7 +120,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   };
 
   if (!question.examSetInfo) return <LoadingPage />;
-  console.log("What's inside",question.specialtiesInfo)
+  //console.log("What's inside",question.specialtiesInfo)
   return (
     <Grid celled stackable columns="equal">
       <Grid.Column>
@@ -131,7 +138,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
               <Translate id="questionMetadata.specialty" />{' '}
               {_(question.specialties)
                 .orderBy('votes', 'desc')
-                .map((s) => specialties.find((specialty) => specialty.id === s.id))
+                /*.map((s) => specialties.find((specialty) => specialty.id === s.id))*/
                 .map((specialty) => {
                   if (!specialty) return null;
                   const questionSpecialtyVotes = specialtyVotes.filter(
@@ -162,7 +169,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
             <Grid.Row>
               <Translate id="questionMetadata.tags" />{' '}
               {_(question.tags)
-                .map((t) => tags.find((tag) => tag.id === t.id))
+                //.map((t) => tags.find((tag) => tag.id === t.id))
                 .orderBy('votes', 'desc')
                 .map((t) => {
                   console.log("I'm logging t",t)

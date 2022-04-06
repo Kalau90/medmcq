@@ -164,6 +164,4 @@ const App: React.SFC<AppProps> = ({ addTranslation, initialize }) => {
   );
 };
 
-console.log("OK");
-
 export default withLocalize(App);
