@@ -94,3 +94,21 @@ sudo npm install knex mysql -g
 cd server/
 
 knex migrate:latest
+
+# Export mysql data
+Inside docker container with mysql:
+
+mysqldump -u root -p medmcqprod > dumpXXXXXX_xxxx.sql
+
+Outside container:
+
+docker cp [dock_id]:/dumpXXXXXX_xxxx.sql dumpXXXXXX_xxxx.sql
+
+Download to local computer!
+
+# Import mysql data
+On local computer, inside folder with dump:
+scp -i ~/.ssh/au/medmcq_key.pem dumpXXXXXX_xxxx.sql [remoteUSER]@[remoteIP]:/home/au/dumpXXXXXX_xxxx.sql
+
+Then on server, run:
+mysql -u username -h [ip] -p medmcqprod < data-dump.sql
