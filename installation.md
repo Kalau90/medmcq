@@ -34,7 +34,9 @@ mysql -u root -p
 + password
 
 HERI KØR:
-ALTER USER *********************;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
+eller
+ALTER USER 'root' IDENTIFIED BY 'MyNewPass';
 FLUSH PRIVILEGES;
 CREATE DATABASE medmcqprod;
 SHOW DATABASES;
@@ -47,5 +49,14 @@ mkdir apps
 cd apps/
 git clone git@github.com:Kalau90/medmcq.git
 cd medmcq/
+sudo apt install net-tools
+ifconfig
 nano .env.development
 *[content]*
+
+sudo docker-compose up -d --build
+
+# To test knex connection:
+sudo npm install knex mysql -g
+cd server/
+knex migrate:latest
