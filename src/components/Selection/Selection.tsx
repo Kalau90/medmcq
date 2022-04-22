@@ -44,7 +44,7 @@ const Selection: React.SFC<SelectionProps> = ({ addTranslation }) => {
     <div className="flex-container">
       <Container className="content">
         <Header as="h1" style={{ textAlign: 'center' }}>
-          MedMCQ
+          AU MCQ
         </Header>
         <Divider />
         {notice?.message && <Message color={notice.color as any}>{notice.message}</Message>}

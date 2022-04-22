@@ -45,7 +45,7 @@ export const resolvers: Resolvers = {
       const msg = {
         to: urls.issue,
         from: {
-          name: 'MedMCQ',
+          name: 'AU MCQ',
           email: urls.fromEmail
         },
         subject: subject,

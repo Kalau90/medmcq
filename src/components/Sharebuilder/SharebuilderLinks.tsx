@@ -4,7 +4,7 @@ import { Input, Divider, Button, Segment } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 import { ReduxState } from 'redux/reducers';
 const domain =
-  process.env.NODE_ENV === 'production' ? 'https://medmcq.au.dk' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production' ? 'https://mcq.au.dk' : 'http://localhost:3000';
 
 export interface ShareBuilderLinksProps {}
 
@@ -42,7 +42,7 @@ const ShareBuilderLinks: React.SFC<ShareBuilderLinksProps> = () => {
         <label>Indsæt dele-links her, adskilt af komma.</label>
         <Input
           fluid
-          placeholder="https://medmcq.au.dk/quiz/5, https://medmcq.au.dk/quiz/10, osv..."
+          placeholder="https://mcq.au.dk/quiz/5, https://mcq.au.dk/quiz/10, osv..."
           value={shareLinks}
           onChange={(e) => setShareLinks(e.target.value)}
         />

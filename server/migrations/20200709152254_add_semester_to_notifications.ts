@@ -13,7 +13,7 @@ export async function up(knex: Knex): Promise<any> {
   let i = 0;
   for (let n of notifications) {
     console.log('Parsing notification ' + i + ' of ' + notifications.length);
-    const capture = n.message.split(/https:\/\/medmcq.au.dk\/quiz\/(\d+)/);
+    const capture = n.message.split(/https:\/\/mcq.au.dk\/quiz\/(\d+)/);
     const questionId = Number(capture[1]);
     if (Number.isNaN(questionId)) {
       continue;

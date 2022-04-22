@@ -19,7 +19,7 @@ const MaintenancePage: React.SFC<MaintenancePageProps> = () => {
           flexGrow: 10
         }}
       >
-        <h1 style={{ fontSize: '3em' }}>MedMCQ</h1>
+        <h1 style={{ fontSize: '3em' }}>AU MCQ</h1>
         <p style={{ fontSize: '1.5em' }}>{maintenance.message}</p>
       </div>
     </Container>

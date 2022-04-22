@@ -13,9 +13,9 @@ const IE11: React.SFC<IE11Props> = () => {
         transform: 'translate(-50%, -50%)'
       }}
     >
-      <h1 style={{ color: 'blue' }}>MedMCQ</h1>
+      <h1 style={{ color: 'blue' }}>AU MCQ</h1>
       <h2>
-        Din internet browser understøtter ikke nyere teknologi, og kan derfor ikke køre MedMCQ.
+        Din internet browser understøtter ikke nyere teknologi, og kan derfor ikke køre AU MCQ.
         <br />
         Benyt venligst Chrome, Firefox, Edge eller anden nyrere browser i stedet.
       </h2>

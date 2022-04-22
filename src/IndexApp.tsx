@@ -41,7 +41,7 @@ const migrations: any = {
 };
 
 const persistConfig = {
-  key: 'medMCQ',
+  key: 'AU MCQ',
   storage: storage,
   stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
   version: 12,

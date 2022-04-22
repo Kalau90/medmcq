@@ -17,7 +17,7 @@ import LoadingPage from 'components/Misc/Utility/LoadingPage';
 import Semester from 'classes/Semester';
 import Selection from 'classes/Selection';
 const domain =
-  process.env.NODE_ENV === 'production' ? 'https://medmcq.au.dk' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production' ? 'https://mcq.au.dk' : 'http://localhost:3000';
 
 const initialFilter = {
   specialtyIds: [] as number[],
