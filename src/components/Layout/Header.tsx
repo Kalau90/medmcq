@@ -5,8 +5,6 @@ import styles from './Header.module.css';
 import RightMenu from './Menus/RightMenu';
 import LeftMenu from './Menus/LeftMenu';
 
-import '@aarhus-university/au-designsystem-delphinus/source/style.scss'
-
 /**
  * Header-component. Viser headeren og tjekker at brugeren er logget ind.
  */
