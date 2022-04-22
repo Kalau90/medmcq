@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 # Dont skip this step. It is for caching.
 COPY package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY . .
 

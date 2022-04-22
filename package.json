@@ -80,6 +80,7 @@
     "yup": "^0.29.2"
   },
   "devDependencies": {
+    "@aarhus-university/au-designsystem-delphinus": "^0.24.1",
     "@graphql-codegen/cli": "^1.17.6",
     "@graphql-codegen/typescript": "^1.17.6",
     "@graphql-codegen/typescript-operations": "^1.17.6",
