@@ -33,15 +33,22 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   const question = useSelector((state: ReduxState) => state.questions.questions[questionIndex]);
   const isEditing = useSelector((state: ReduxState) => state.questions.isEditing);
   const semesterId = question.examSet.semester.id;
-  const examSet = useSelector((state: ReduxState) =>
+  /*const examSet = useSelector((state: ReduxState) =>
     state.metadata.semesters
       .flatMap((s) => s.examSets)
       .find((examSet) => examSet.id === question.examSet.id)
-  );
-  const specialties = useSelector(
-    (state: ReduxState) =>
-      state.metadata.semesters.find((semester) => semester.id === semesterId)?.specialties
-  );
+  );*/
+  //console.log("QUESTION",question)
+  /*const specialties = useSelector(
+    (state: ReduxState) => {
+      console.log("QI", questionIndex);
+      console.log("WUT",state.questions.questions[questionIndex])
+      console.log("Q", question)
+      return state.questions.questions[questionIndex].specialtiesInfo
+    }
+    
+      //state.metadata.semesters.find((semester) => semester.id === semesterId)?.specialties
+  );*/
   const answers = useSelector((state: ReduxState) =>
     state.quiz.userAnswers.filter((ua) => question.answers.some((a) => a.id === ua.answerId))
   );
@@ -49,7 +56,8 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   const tagVotes = question.tagVotes;
   const tags = useSelector(
     (state: ReduxState) =>
-      state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
+      state.questions.questions[questionIndex].tagsInfo
+      //state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
   );
   const user = useSelector((state: ReduxState) => state.auth.user);
   const [addingTagError, setAddingTagError] = useState('');
@@ -61,7 +69,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   useEffect(() => {
     setSuggestTagMessage('');
     setAddingTagError('');
-    Semester.fetchAll();
+    //Semester.fetchAll();
   }, [question]);
 
   const suggestTag = async () => {
@@ -95,23 +103,24 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   };
 
   const setName = () => {
-    if (examSet.name) {
-      return <p>{examSet.name}</p>;
+    if (question.examSetInfo.name) {
+      return <p>{question.examSetInfo.name}</p>;
     }
     return (
       <div>
         <Translate id="questionMetadata.set" />{' '}
-        {examSet.season === 'F' ? (
+        {question.examSetInfo.season === 'F' ? (
           <Translate id="questionMetadata.set_season.F" />
         ) : (
           <Translate id="questionMetadata.set_season.E" />
         )}{' '}
-        {examSet.year} <QuestionHadHelpLabel hadHelp={examSet.hadHelp} />
+        {question.examSetInfo.year} <QuestionHadHelpLabel hadHelp={question.examSetInfo.hadHelp} />
       </div>
     );
   };
 
-  if (!examSet) return <LoadingPage />;
+  if (!question.examSetInfo) return <LoadingPage />;
+  //console.log("What's inside",question.specialtiesInfo)
   return (
     <Grid celled stackable columns="equal">
       <Grid.Column>
@@ -129,7 +138,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
               <Translate id="questionMetadata.specialty" />{' '}
               {_(question.specialties)
                 .orderBy('votes', 'desc')
-                .map((s) => specialties.find((specialty) => specialty.id === s.id))
+                /*.map((s) => specialties.find((specialty) => specialty.id === s.id))*/
                 .map((specialty) => {
                   if (!specialty) return null;
                   const questionSpecialtyVotes = specialtyVotes.filter(
@@ -160,9 +169,10 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
             <Grid.Row>
               <Translate id="questionMetadata.tags" />{' '}
               {_(question.tags)
-                .map((t) => tags.find((tag) => tag.id === t.id))
+                //.map((t) => tags.find((tag) => tag.id === t.id))
                 .orderBy('votes', 'desc')
                 .map((t) => {
+                  console.log("I'm logging t",t)
                   if (!t) return null;
                   const questionTagVotes = tagVotes.filter((tv) => tv.tag.id === t.id);
                   const votes = _.sumBy(questionTagVotes, (tv) => tv.vote);

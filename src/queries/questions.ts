@@ -28,6 +28,7 @@ export const fetchFilteredQuestions = gql`
       answer2
       answer3
       examSetQno
+      examSetInfo
       semester {
         id
         value
@@ -40,8 +41,16 @@ export const fetchFilteredQuestions = gql`
       specialties {
         specialtyId
       }
+      specialtiesInfo {
+        id
+        name
+      }
       tags {
         tagId
+      }
+      tagsInfo {
+        id
+        name
       }
       examSet {
         year
@@ -63,6 +72,7 @@ export const getQuestionsFromIds = gql`
       answer2
       answer3
       examSetQno
+      examSetInfo
       semester {
         id
         value
@@ -75,8 +85,16 @@ export const getQuestionsFromIds = gql`
       specialties {
         specialtyId
       }
+      specialtiesInfo {
+        id
+        name
+      }
       tags {
         tagId
+      }
+      tagsInfo {
+        id
+        name
       }
       examSet {
         year

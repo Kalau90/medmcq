@@ -13,10 +13,13 @@ import examsetRoute from 'routes/examSets'
 import jsonWebToken from 'jsonwebtoken';
 import User from 'models/user';
 const secret = process.env.SECRET || '';
+import updatePercentageCron from "jobs/updatePercentage"
 
 const port = process.env.PORT || 3001;
 const app = express();
 sgMail.setApiKey(process.env.SENDGRID);
+
+updatePercentageCron.start();
 
 // middleware
 app.use(helmet());

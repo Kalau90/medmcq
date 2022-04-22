@@ -12,16 +12,16 @@
     "about_link": ["Om siden", "About this site"],
     "contact_link": ["Kontakt", "Contact"],
     "permission": [
-      "Siden er lavet med tilladelse fra Institut for Klinisk Medicin og støttet af <a style=\"color:white;text-decoration: underline;\" target=\"_blank\" href=\"https://cesu.au.dk\">CESU</a>, Health, Aarhus Universitet.",
-      "The site is developed with permission from The Department of Clinical Medicine and supported by <a style=\"color:white;text-decoration: underline;\" target=\"_blank\" href=\"https://cesu.au.dk\">CESU</a>, Health, Aarhus University"
+      "Siden er lavet med tilladelse fra Institut for Klinisk Medicin og støttet af <a style=\"color:white;text-decoration: underline;\" target=\"_blank\" href=\"https://ced.au.dk\">CED</a>, Health, Aarhus Universitet.",
+      "The site is developed with permission from The Department of Clinical Medicine and supported by <a style=\"color:white;text-decoration: underline;\" target=\"_blank\" href=\"https://ced.au.dk\">CED</a>, Health, Aarhus University"
     ],
     "developed_by": [
-      "Udviklet af <a style=\"color:white;text-decoration: underline;\" href=\"https://pure.au.dk/portal/da/persons/thomas-jensen(f3739755-fb40-406e-b577-af166c82442a).html\" target=\"_blank\">Thomas Jensen</a> og Sigurd Morsby Larsen",
-      "Developed by <a style=\"color:white;text-decoration: underline;\" href=\"https://pure.au.dk/portal/da/persons/thomas-jensen(f3739755-fb40-406e-b577-af166c82442a).html\" target=\"_blank\">Thomas Jensen</a> and Sigurd Morsby Larsen"
+      "Udviklet af <a style=\"color:white;text-decoration: underline;\" href=\"https://ced.au.dk/\" target=\"_blank\">Centre for Educational Development</a>",
+      "Developed by <a style=\"color:white;text-decoration: underline;\" href=\"https://ced.au.dk/\" target=\"_blank\">Centre for Educational Development</a>"
     ],
     "contact": [
-      "Problemer med siden? Kontakt kalau@au.dk",
-      "If you are experiences issues with the site, contact kalau@au.dk"
+      "Kontakt: kalau@au.dk",
+      "Contact: kalau@au.dk"
     ]
   }
 }

@@ -14,6 +14,9 @@ import ShareLink from 'models/shareLink';
 import { permitAdmin } from 'graphql/utils';
 import QuestionAnswer from 'models/questionAnswer.model';
 import QuestionIgnores from 'models/questionIgnores.model';
+import ExamSet from 'models/exam_set';
+import Specialty from 'models/specialty';
+import Tag from 'models/tag';
 
 export const typeDefs = gql`
   extend type Query {
@@ -48,12 +51,15 @@ export const typeDefs = gql`
     images: [String]
     oldId: String
     examSetQno: Int
+    examSetInfo: ExamSet
     publicComments: [Comment]
     privateComments: [Comment]
     specialtyVotes: [SpecialtyVote]
     tagVotes: [TagVote]
     specialties: [Specialty]
+    specialtiesInfo: [Specialty]
     tags: [Tag]
+    tagsInfo: [Tag]
     examSet: ExamSet
     createdAt: String
     updatedAt: String
@@ -137,15 +143,14 @@ export const resolvers: Resolvers = {
       query = query.orderByRaw('rand()');
 
       if (ctx.user) {
-        if (!n || n > 600) n = 600; // Man må ikke hente mere end 600, hvis man er logget ind
+        if (!n || n > 100) n = 100; // Man må ikke hente mere end 600, hvis man er logget ind
       } else {
-        if (!n || n > 300) n = 300; // Man må ikke hente mere end 300, hvis man ikke er logget ind
+        if (!n || n > 80) n = 80; // Man må ikke hente mere end 300, hvis man ikke er logget ind
       }
 
       query = query.limit(n);
 
       if (specialtyIds && specialtyIds.length > 0) {
-        console.log(new Date().toUTCString(), "Speciality id lookup")
         const votes = await QuestionSpecialtyVote.query()
           .whereIn('specialtyId', specialtyIds)
           .groupBy('questionId')
@@ -153,18 +158,15 @@ export const resolvers: Resolvers = {
           .having('votes', '>', '-1')
           .select('questionId').debug();
 
-        console.log(new Date().toUTCString(), "Speciality id join starts")
         query = query
           .join('questionSpecialtyVote as specialtyVote', 'question.id', 'specialtyVote.questionId')
           .whereIn(
             'question.id',
             votes.map((specialtyVote) => specialtyVote.questionId)
           );
-        console.log(new Date().toUTCString(), "Speciality id finished")
       }
 
       if (tagIds && tagIds.length > 0) {
-        console.log(new Date().toUTCString(), "Tags id lookup")
         const votes = await QuestionTagVote.query()
           .whereIn('tagId', tagIds)
           .groupBy('questionId')
@@ -172,24 +174,20 @@ export const resolvers: Resolvers = {
           .having('votes', '>', '-1')
           .select('questionId');
 
-        console.log(new Date().toUTCString(), "Tags id join")
         query = query
           .join('questionTagVote as tagVote', 'question.id', 'tagVote.questionId')
           .whereIn(
             'question.id',
             votes.map((vote) => vote.questionId)
           );
-        console.log(new Date().toUTCString(), "Tags id ended")
       }
 
       if (ctx.user) {
-        console.log(new Date().toUTCString(), "Ignored lookup")
         const ignoredQuestions = await QuestionIgnores.query().where({ userId: ctx.user.id });
         query = query.whereNotIn(
           'question.id',
           ignoredQuestions.map((q) => q.questionId)
         );
-        console.log(new Date().toUTCString(), "Ignored ended")
       }
 
       if (ctx.user && onlyWrong) {
@@ -210,10 +208,8 @@ export const resolvers: Resolvers = {
         );
       }
 
-      console.log(new Date().toUTCString(), "Getting questions")
       const questions = await query.groupBy('question.id').select('question.id as id').debug();
 
-      console.log(new Date().toUTCString(), "Return questions")
       return questions.map((question) => ({ id: question.id }));
     }
   },
@@ -351,6 +347,22 @@ export const resolvers: Resolvers = {
       const examSet = await ctx.examSetsLoader.load(question.examSetId);
       return { id: examSet.id };
     },
+    examSetInfo: async ({ id }, args, ctx) => {
+      const question = await ctx.questionLoader.load(id);
+      const examSet = await ctx.examSetsLoader.load(question.examSetId);
+      const setinfo = await ExamSet.query().where({
+        id: examSet.id
+      }).limit(1)
+      return {
+        id: setinfo[0].id,
+        year: setinfo[0].year,
+        season: setinfo[0].season,
+        semesterId: setinfo[0].semesterId,
+        reexam: setinfo[0].reexam,
+        hadHelp: setinfo[0].hadHelp,
+        name: setinfo[0].name
+      }//.year + setinfo[0].season + setinfo[0].semesterId;
+    },
     publicComments: async ({ id }, _, ctx) => {
       const publicComments = await Comment.query().where('questionId', id).where({ private: 0 });
       return publicComments.map((pc) => ({ id: pc.id }));
@@ -389,8 +401,34 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('specialtyId');
 
-      return specialties.map((s) => ({ id: s.specialtyId }));
+      return specialties.map(async(s) => {
+        let specialtyName = await Specialty.query()
+          .where( "id", s.specialtyId ).select("name").limit(1)
+        return { id: s.specialtyId, specialtyName: specialtyName }
+      });
     },
+    /*specialtiesInfo: async ({ id }, args, ctx) => {
+      const specialtyVotes = await QuestionSpecialtyVote.query()
+        .where({ questionId: id })
+        .groupBy('specialtyId')
+        .sum('value as votes')
+        .having('votes', '>', '-1')
+        .orderBy('votes', 'desc')
+        .select('specialtyId');
+
+      const specialtiesIds = specialtyVotes.map((s) => ( s.specialtyId ));
+
+      let specialties = await Specialty.query()
+        .whereIn( "id", specialtiesIds )
+
+      /*const specialties0 = specialties.map((v)=>{
+        return {
+          id: v.id,
+          name: "LOL"+v.name
+        }
+      })*/
+      //return specialties;
+    //},
     tags: async ({ id }, args, ctx) => {
       const tags = await QuestionTagVote.query()
         .where({ questionId: id })
@@ -400,7 +438,27 @@ export const resolvers: Resolvers = {
         .orderBy('votes', 'desc')
         .select('tagId');
 
-      return tags.map((t) => ({ id: t.tagId }));
+      return tags.map(async (t) => {
+        let tagName = await Tag.query()
+          .where("id", t.tagId).select("name").limit(1)
+        return { id: t.tagId, tagName: tagName }
+      });
+      /*return specialties.map(async(s) => {
+        let specialtyName = await Specialty.query()
+          .where( "id", s.specialtyId ).select("name").limit(1)
+        return { id: s.specialtyId, specialtyName: specialtyName }
+      });*/
+    },
+    tagsInfo: async ({ id }, args, ctx) => {
+      const tagsVotes = await QuestionTagVote.query()
+        .where({ questionId: id })
+
+      const tagsIds = tagsVotes.map((t) => ( t.tagId ));
+
+      let tags = await Tag.query()
+        .whereIn( "id", tagsIds )
+
+      return tags;
     },
     user: async ({ id }, args, ctx) => {
       const question = await ctx.questionLoader.load(id);
@@ -428,8 +486,8 @@ export const resolvers: Resolvers = {
       return answer.index;
     },
     explanation: async ({ id }, _, ctx) => {
-      const answer = await ctx.questionAnswersLoader.load(id);
-      return answer.explanation;
+      //const answer = await ctx.questionAnswersLoader.load(id);
+      return "";//answer.explanation;
     },
     isCorrect: async ({ id }, _, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);
@@ -437,7 +495,7 @@ export const resolvers: Resolvers = {
     },
     correctPercent: async ({ id }, args, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);
-      const questionAnswers = await ctx.questionAnswersByQuestionLoader.load(answer.questionId);
+      /*const questionAnswers = await ctx.questionAnswersByQuestionLoader.load(answer.questionId);
       let allUserAnswers = await QuestionUserAnswer.query().whereIn(
         'answerId',
         questionAnswers.map((qa) => qa.id)
@@ -450,7 +508,8 @@ export const resolvers: Resolvers = {
         .value();
       const answeredThisCount = firstTimeAnswers.filter((ua) => ua.answerId === id);
       const correctPercent = Math.round((answeredThisCount.length / firstTimeAnswers.length) * 100);
-      return correctPercent;
+      return correctPercent; */
+      return answer.percentage || null;
     },
     question: async ({ id }, _, ctx) => {
       const answer = await ctx.questionAnswersLoader.load(id);

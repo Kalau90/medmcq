@@ -33,12 +33,27 @@ class Question {
           id
         }
       }
+      examSetInfo {
+        id
+        year
+        season
+        semester {
+          id
+          name
+        }
+        reexam
+        hadHelp
+        name
+      }
       specialties {
         id
+        name
       }
       tags {
         id
+        name
       }
+      
       specialtyVotes {
         ...SpecialtyVote
       }

@@ -71,7 +71,7 @@ const App: React.SFC<AppProps> = ({ addTranslation, initialize }) => {
     };
 
     fetch();
-    setInterval(() => {
+    const intervalFetch = setInterval(() => {
       fetch();
     }, 1000 * 60 * 2);
 
@@ -102,6 +102,8 @@ const App: React.SFC<AppProps> = ({ addTranslation, initialize }) => {
         closeOnClick: false
       });
     }
+
+    return () => clearInterval(intervalFetch)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

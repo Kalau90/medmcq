@@ -5,6 +5,7 @@ interface QuestionSpecialtyVote {
   userId: number;
   questionId: number;
   specialtyId: number;
+  specialtyName: string;
   value: number;
 }
 
