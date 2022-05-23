@@ -25,7 +25,7 @@ export const imageURL = (image: string) => {
   if (image.match(/http|https/)) {
     return image;
   } else {
-    return `/images/${image}`;
+    return `https://static.mcq.au.dk/images/${image}`;
   }
 };
 export const truncateText = (text: string, length = 30) => {
