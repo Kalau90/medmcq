@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import SuspenseLoader from 'components/Misc/Utility/SuspenseLoader';
 // eslint-disable-next-line
 import SelectionCountdown from './SelectionCountdown';
+import ReactHtmlParser from 'react-html-parser';
 const SelectionRandom = lazy(() => import('./SelectionRandom'));
 const SelectionMetadata = lazy(() => import('./SelectionMetadata'));
 const SelectionSets = lazy(() => import('./SelectionSets'));
@@ -47,7 +48,7 @@ const Selection: React.SFC<SelectionProps> = ({ addTranslation }) => {
           AU MCQ
         </Header>
         <Divider />
-        {notice?.message && <Message color={notice.color as any}>{notice.message}</Message>}
+        {notice?.message && <Message color={notice.color as any}>{ReactHtmlParser(notice.message)}</Message>}
         <SelectionSemesterSelector />
         <QuestionCount />
         <Divider />
