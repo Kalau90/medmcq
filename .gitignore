@@ -76,3 +76,5 @@ typings/
 # Serverless directories
 .serverless
 dumps/dump220421_1200.sql
+
+images/

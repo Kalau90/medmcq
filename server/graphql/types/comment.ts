@@ -5,7 +5,7 @@ import { Resolvers } from 'types/resolvers-types';
 import Notification from 'models/notification.class';
 import ExamSet from 'models/exam_set';
 const domain =
-  process.env.NODE_ENV === 'production' ? 'https://medmcq.au.dk' : 'http://localhost:3000';
+  process.env.NODE_ENV === 'production' ? 'https://mcq.au.dk' : 'http://localhost:3000';
 
 export const typeDefs = gql`
   type Comment {

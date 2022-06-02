@@ -102,6 +102,7 @@
     "@types/react-copy-to-clipboard": "^4.3.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-highlighter": "^0.3.4",
+    "@types/react-html-parser": "^2.0.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "@types/recharts": "^1.8.14",
