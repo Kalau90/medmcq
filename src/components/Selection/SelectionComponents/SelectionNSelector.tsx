@@ -19,7 +19,7 @@ const SelectionNSelector: React.SFC<SelectionNSelectorProps> = () => {
   const [error, setError] = useState(false);
   const n = useSelector((state: ReduxState) => state.selection.n);
   const user = useSelector((state: ReduxState) => state.auth.user);
-  const allowedMax = user ? 600 : 300;
+  const allowedMax = user ? 150 : 100;
 
   const handleChange = (value: number) => {
     if (value > allowedMax) {

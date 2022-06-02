@@ -164,7 +164,7 @@ const Sharebuilder: React.SFC<SharebuilderProps> = () => {
       )
     },
     {
-      title: 'Specialer',
+      title: 'Emner',
       key: 'specialties',
       filterDropdown: (
         <SearchDropdown

@@ -143,9 +143,9 @@ export const resolvers: Resolvers = {
       query = query.orderByRaw('rand()');
 
       if (ctx.user) {
-        if (!n || n > 100) n = 100; // Man må ikke hente mere end 600, hvis man er logget ind
+        if (!n || n > 150) n = 150; // Man må ikke hente mere end 600, hvis man er logget ind
       } else {
-        if (!n || n > 80) n = 80; // Man må ikke hente mere end 300, hvis man ikke er logget ind
+        if (!n || n > 100) n = 100; // Man må ikke hente mere end 300, hvis man ikke er logget ind
       }
 
       query = query.limit(n);

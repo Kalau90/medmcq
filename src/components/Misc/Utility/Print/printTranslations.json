@@ -8,7 +8,7 @@
     "metadata": {
       "from": ["Fra: ", "From: "],
       "semester": ["${n}. semester", "${n}th semester"],
-      "specialties": ["Specialer", "Specialties"],
+      "specialties": ["Emner", "Topics"],
       "seasons": {
         "E": ["efterår", "autumn"],
         "F": ["forår", "spring"],

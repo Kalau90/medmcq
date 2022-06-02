@@ -67,14 +67,14 @@
       "E": ["Efterår", "Autumn "],
       "F": ["Forår", "Spring "]
     },
-    "specialty": ["Speciale:", "Specialty:"],
+    "specialty": ["Emne:", "Topic:"],
     "tags": ["Tags:", "Tags:"],
     "answered": [
       "Du har svaret rigtigt ${correct} ud af ${wrong} gange (${percent}%)",
       "You have answered correctly ${correct} out of ${wrong} times (${percent}%)"
     ],
     "addTag": ["Tilføj tag", "Add tag"],
-    "addSpecialty": ["Tilføj speciale", "Add specialty"]
+    "addSpecialty": ["Tilføj emne", "Add topic"]
   },
   "questionReport": {
     "label": ["Hvad er fejlen?", "What's the error?"],

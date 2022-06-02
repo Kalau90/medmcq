@@ -120,7 +120,7 @@ const RightMenu: React.SFC<RightMenuProps> = ({ setActiveLanguage, languages, si
       <>
         {languages.map((lang) => generateFlag(lang))}
         <Menu.Item onClick={() => history.push('/login')}>
-          <Icon name="doctor" /> <Translate id="header.login" />
+          <Icon name="user" /> <Translate id="header.login" />
         </Menu.Item>
       </>
     );

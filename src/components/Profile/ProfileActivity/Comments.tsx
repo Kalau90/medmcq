@@ -60,7 +60,7 @@ const Comments: React.SFC<CommentsProps> = ({ comments, type }) => {
       )
     },
     {
-      title: 'Specialer',
+      title: 'Emner',
       render: (record: CommentClass) =>
         record.question.specialties.map((specialty) => (
           <Tag key={specialty.id} color="blue">
