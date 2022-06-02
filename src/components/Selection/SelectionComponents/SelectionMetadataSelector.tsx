@@ -72,7 +72,7 @@ const SelectionSpecialtiesSelector: React.SFC<SelectionSpecialtiesSelectorProps>
       return <Tree.TreeNode key={item.key} {...item} />;
     });
 
-  if (!semester) return <p>Du skal vælge et semester for at se specialer og tags.</p>;
+  if (!semester) return <p>Du skal vælge et semester for at se emner og tags.</p>;
   return (
     <Form>
       <Grid columns="equal" stackable>
