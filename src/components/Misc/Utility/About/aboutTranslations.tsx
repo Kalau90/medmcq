@@ -8,7 +8,7 @@ export default {
     ],
     frontDisclaimer: [
       '<p>AU MCQ besidder MCQ-eksamenspørgsmål fra tidligere semestre og du bør derfor være opmærksom på:</p><ol><li>Nogle besvarelser kan være forældet ift. hvad vil være korrekt i dag.</li><li>Pensum kan siden være ændret, hvorfor du kan møde spørgsmål der ligger uden for pensum. Der kan også være elementer af pensum, som der ikke er spørgsmål indenfor.</li><li>Flere af spørgsmålene er udviklet til MCQ-eksamener med hjælpemidler. Derfor kan du opleve at spørgsmålene har et højere kompleksitetsniveau.</li></ol>',
-      '<p>Welcome to AU MCQ. You can test your abilities within different semesters and different medical specialties. Since the site contains MCQ examination questions from earlier semesters, you should be aware that</p><ol><li>Some answers might be outdated.</li><li>The curriculum may be different today, which means that some questions may be irrelevant for your upcoming exam and some areas of relevance may not be covered by the questions.</li><li>Some of the questions were for an examination where aid was permitted, which means you may experience a higher level of complexity in the questions.</li></ol>'
+      '<p>Welcome to AU MCQ. You can test your abilities within different semesters and different medical topics. Since the site contains MCQ examination questions from earlier semesters, you should be aware that</p><ol><li>Some answers might be outdated.</li><li>The curriculum may be different today, which means that some questions may be irrelevant for your upcoming exam and some areas of relevance may not be covered by the questions.</li><li>Some of the questions were for an examination where aid was permitted, which means you may experience a higher level of complexity in the questions.</li></ol>'
     ],
     privacy: {
       header: ['Privatliv og cookies', 'Privacy and cookies'],
@@ -39,10 +39,10 @@ export default {
     header: ['Stemmesystemet', 'The voting system'],
     body: [
       `
-    <p>Når du stemmer på et speciale eller tag, så tæller du 1 point. Du kan tilføje nye tags eller specialer i dropdown menuerne. Hvis du er den eneste der har stemt på tagget, vil tagget blive fjernet, hvis du nedstemmer spørgsmålet til 0. Hvis også andre har stemt på samme speciale eller tag som dig, så skal pointene nå -1 før det forsvinder. 
+    <p>Når du stemmer på et speciale eller tag, så tæller du 1 point. Du kan tilføje nye tags eller emner i dropdown menuerne. Hvis du er den eneste der har stemt på tagget, vil tagget blive fjernet, hvis du nedstemmer spørgsmålet til 0. Hvis også andre har stemt på samme speciale eller tag som dig, så skal pointene nå -1 før det forsvinder. 
     </p>`,
       `
-      <p>When voting for a specialty or tag, your vote will count for 1 point. You can add new tags or specialties in the dropdown menus. If you are the only one, who has voted on the tag, the tag will dissapear, if you downvote it to 0 points. If others have voted on the same specialty or tag, the points will need to reach -1 before it is removed.
+      <p>When voting for a specialty or tag, your vote will count for 1 point. You can add new tags or topics in the dropdown menus. If you are the only one, who has voted on the tag, the tag will dissapear, if you downvote it to 0 points. If others have voted on the same specialty or tag, the points will need to reach -1 before it is removed.
       </p>`
     ]
   },
@@ -122,7 +122,7 @@ export default {
     <h3>v.1.2.3 - 24/05-2019</h3>
     <ul>
         <li>
-            Vi har fået et nyt stemmesystem! Du kan nu også nedstemme specialer og tags. Du kan læse om det nye system længere nede.
+            Vi har fået et nyt stemmesystem! Du kan nu også nedstemme emner og tags. Du kan læse om det nye system længere nede.
         </li>
     </ul>
     <h3>v.1.2.2 - 2019-04-25</h3>
@@ -142,7 +142,7 @@ export default {
 <h3>v1.2.0 - 2019-03-25</h3>
 <ul>
     <li>
-        Alle brugere kan nu stemme på specialer og tags til spørgsmål.
+        Alle brugere kan nu stemme på emner og tags til spørgsmål.
     </li>
     <li>
         Brugere kan gemme private kommentarer.
@@ -233,7 +233,7 @@ export default {
     <h3>v.1.2.3 - 24/05-2019</h3>
     <ul>
         <li>
-            We have a new voting system! You can now also downvote wrongly labelled specialties and tags. You can read more about the new system further down.
+            We have a new voting system! You can now also downvote wrongly labelled topics and tags. You can read more about the new system further down.
         </li>
     </ul>
   <h3>v.1.2.2 - 2019-04-25</h3>
@@ -252,7 +252,7 @@ export default {
   <h3>v0.2.0 - 2019-03-25</h3>
   <ul>
       <li>
-          All logged-in users can vote on specialties and tags for a question.
+          All logged-in users can vote on topics and tags for a question.
       </li>
       <li>
           Logged-in users can save private comments.
@@ -332,7 +332,7 @@ export default {
       `
     <ul>
         <li>
-        <b>Valg af spørgsmål tilfældigt</b>, ud fra specialer eller tags eller ud fra hele
+        <b>Valg af spørgsmål tilfældigt</b>, ud fra emner eller tags eller ud fra hele
         eksamenssæt
         </li>
         <li>
@@ -352,7 +352,7 @@ export default {
       `
     <ul>
         <li>
-        <b>Choice of questions randomly</b>,based on specialties or tags or from the entire exam set.
+        <b>Choice of questions randomly</b>,based on topics or tags or from the entire exam set.
         </li>
         <li>
         <b>Answering of thousands of questions</b> from previous exam sets - completely free and without limitation
@@ -400,7 +400,7 @@ export default {
       <b>Gemme spørgsmål</b>, så du kan vende tilbage til dem senere.
     </li>
     <li>
-      <b>Stemme på specialer og tags</b>, for at kategorisere spørgsmålene.
+      <b>Stemme på emner og tags</b>, for at kategorisere spørgsmålene.
     </li>
     <li>
       <b>Tilgå din profilside</b> med statistik over hvilke spørgsmål du har besvaret, og
@@ -420,7 +420,7 @@ export default {
   <b>Save questions</b>, so you can come back to them later.
 </li>
 <li>
-  <b>Vote on specialties and tags</b>, to categorize questions.
+  <b>Vote on topics and tags</b>, to categorize questions.
 </li>
 <li>
   <b>Access your profile page</b> that includes statistics based on which questions answered, and how well you are doing.

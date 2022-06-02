@@ -34,7 +34,7 @@
   "selectionTypeSelector": {
     "types": {
       "random": ["Tilfældige spørgsmål", "Random questions"],
-      "specialties": ["Specialer/tags", "Specialties/tags"],
+      "specialties": ["Emner/tags", "Topics/tags"],
       "sets": ["Fulde eksamenssæt", "Complete exam sets"]
     }
   },
@@ -54,14 +54,14 @@
   },
   "selectionSpecialtiesSelector": {
     "choose_semester": [
-      "Vælg et semester for at se tilgængelige specialer",
-      "Choose a specialty to see available specialties"
+      "Vælg et semester for at se tilgængelige emner",
+      "Choose a specialty to see available topics"
     ],
-    "header": ["Specialer", "Specialties"],
+    "header": ["Emner", "Topics"],
     "tags": ["Tags", "Tags"],
     "tags_explanation": [
-      "Vælger du både specialer og tags, vil siden udvælge spørgsmål, hvor mindst ét speciale og ét tag overlapper. Vælges f.eks. specialet lungemedicin og tagget ekg, vil kun spørgsmål hvor begge ting er opfyldt blive valgt -- ønskes også kardiologisk ekg'er, må kardiologi medtages som speciale.",
-      "If you select both specialties and tags, the site will select questions where at least one specialty and one tag overlap. I.e., if you select the specialty pediatrics and the tag paraclinical, only questions fulfilling both requirements will be selected."
+      "Vælger du både emner og tags, vil siden udvælge spørgsmål, hvor mindst ét emne og ét tag overlapper. Vælges f.eks. emnet lungemedicin og tagget ekg, vil kun spørgsmål hvor begge ting er opfyldt blive valgt -- ønskes også kardiologisk ekg'er, må kardiologi medtages som emne.",
+      "If you select both topics and tags, the site will select questions where at least one topic and one tag overlap. I.e., if you select the topic pediatrics and the tag paraclinical, only questions fulfilling both requirements will be selected."
     ],
     "checkbox_labels": ["${speciale} (${n} spørgsmål)", "${speciale} (${n} questions)"],
     "search": ["Søg", "Search"],
@@ -97,8 +97,8 @@
       "Please note that if the selected settings result in fewer questions than requested, you will receive all available questions. If the number of questions is 0, questions are selected randomly."
     ],
     "specialties_lower_than_requested": [
-      "Bemærk, at såfremt de valgte specialer til sammen indeholder færre spørgsmål end det ønskede antal, får du blot alle tilgængelige.",
-      "Please note that if the selected specialties combined contain fewer than the requested number of questions, you will receieve all available questions."
+      "Bemærk, at såfremt de valgte emner til sammen indeholder færre spørgsmål end det ønskede antal, får du blot alle tilgængelige.",
+      "Please note that if the selected topics combined contain fewer than the requested number of questions, you will receieve all available questions."
     ]
   },
   "search": {
