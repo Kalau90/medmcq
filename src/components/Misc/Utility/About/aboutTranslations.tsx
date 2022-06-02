@@ -8,7 +8,7 @@ export default {
     ],
     frontDisclaimer: [
       '<p>AU MCQ besidder MCQ-eksamenspørgsmål fra tidligere semestre og du bør derfor være opmærksom på:</p><ol><li>Nogle besvarelser kan være forældet ift. hvad vil være korrekt i dag.</li><li>Pensum kan siden være ændret, hvorfor du kan møde spørgsmål der ligger uden for pensum. Der kan også være elementer af pensum, som der ikke er spørgsmål indenfor.</li><li>Flere af spørgsmålene er udviklet til MCQ-eksamener med hjælpemidler. Derfor kan du opleve at spørgsmålene har et højere kompleksitetsniveau.</li></ol>',
-      '<p>Welcome to AU MCQ. You can test your abilities within different semesters and different medical topics. Since the site contains MCQ examination questions from earlier semesters, you should be aware that</p><ol><li>Some answers might be outdated.</li><li>The curriculum may be different today, which means that some questions may be irrelevant for your upcoming exam and some areas of relevance may not be covered by the questions.</li><li>Some of the questions were for an examination where aid was permitted, which means you may experience a higher level of complexity in the questions.</li></ol>'
+      '<p>Welcome to AU MCQ. You can test your abilities within different semesters and different topics. Since the site contains MCQ examination questions from earlier semesters, you should be aware that</p><ol><li>Some answers might be outdated.</li><li>The curriculum may be different today, which means that some questions may be irrelevant for your upcoming exam and some areas of relevance may not be covered by the questions.</li><li>Some of the questions were for an examination where aid was permitted, which means you may experience a higher level of complexity in the questions.</li></ol>'
     ],
     privacy: {
       header: ['Privatliv og cookies', 'Privacy and cookies'],
@@ -39,10 +39,10 @@ export default {
     header: ['Stemmesystemet', 'The voting system'],
     body: [
       `
-    <p>Når du stemmer på et speciale eller tag, så tæller du 1 point. Du kan tilføje nye tags eller emner i dropdown menuerne. Hvis du er den eneste der har stemt på tagget, vil tagget blive fjernet, hvis du nedstemmer spørgsmålet til 0. Hvis også andre har stemt på samme speciale eller tag som dig, så skal pointene nå -1 før det forsvinder. 
+    <p>Når du stemmer på et emne eller tag, så tæller du 1 point. Du kan tilføje nye tags eller emner i dropdown menuerne. Hvis du er den eneste der har stemt på tagget, vil tagget blive fjernet, hvis du nedstemmer spørgsmålet til 0. Hvis også andre har stemt på samme emne eller tag som dig, så skal pointene nå -1 før det forsvinder. 
     </p>`,
       `
-      <p>When voting for a specialty or tag, your vote will count for 1 point. You can add new tags or topics in the dropdown menus. If you are the only one, who has voted on the tag, the tag will dissapear, if you downvote it to 0 points. If others have voted on the same specialty or tag, the points will need to reach -1 before it is removed.
+      <p>When voting for a topic or tag, your vote will count for 1 point. You can add new tags or topics in the dropdown menus. If you are the only one, who has voted on the tag, the tag will dissapear, if you downvote it to 0 points. If others have voted on the same topic or tag, the points will need to reach -1 before it is removed.
       </p>`
     ]
   },

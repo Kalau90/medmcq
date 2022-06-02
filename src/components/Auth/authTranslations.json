@@ -116,7 +116,7 @@
     },
     "table_headers": {
       "question": ["Spørgsmål", "Question"],
-      "specialty": ["Speciale", "Specialty"],
+      "specialty": ["Emne", "Topic"],
       "set": ["Sæt", "Set"],
       "performance": ["Din svarprocent", "Your results"]
     },

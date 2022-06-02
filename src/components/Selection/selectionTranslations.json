@@ -11,8 +11,8 @@
     "errs": {
       "no_semester": ["Du skal vælge et semester først.", "You have to choose a semester first"],
       "no_specialty": [
-        "Du skal vælge mindst ét speciale",
-        "You have to select at least one specialty."
+        "Du skal vælge mindst ét emne",
+        "You have to select at least one topic."
       ],
       "no_set": ["Du skal vælge et sæt for at kunne starte.", "You have to select a set to start."],
       "no_questions": [
@@ -55,7 +55,7 @@
   "selectionSpecialtiesSelector": {
     "choose_semester": [
       "Vælg et semester for at se tilgængelige emner",
-      "Choose a specialty to see available topics"
+      "Choose a semester to see available topics"
     ],
     "header": ["Emner", "Topics"],
     "tags": ["Tags", "Tags"],
