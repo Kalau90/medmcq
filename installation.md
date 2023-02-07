@@ -1,27 +1,26 @@
 # Installation of node, nginx and (for test) pm2
-sudo apt install nodejs
 
-nano hello.js
+Install nodejs
+  sudo apt install nodejs
+  nano hello.js
+  sudo apt install npm
+  sudo npm install pm2@latest -g
+  sudo apt install build-essentials
 
-sudo apt install npm
+Running pm2
+  pm2 start hello.js
 
-sudo npm install pm2@latest -g
+Test:
+  curl http://localhost:3001
 
-sudo apt install build-essentials
-
-pm2 start hello.js
-
-curl http://localhost:3001
-
-sudo apt install nginx
-
-sudo nano /etc/nginx/sites-available/default
-
-sudo nginx -t
-
-sudo systemctl restart nginx
+Nginx stuff
+  sudo apt install nginx
+  sudo nano /etc/nginx/sites-available/default
+  sudo nginx -t
+  sudo systemctl restart nginx
 
 # Make MySQL
+
 cd
 
 cd apps/
