@@ -8,5 +8,6 @@ services:
     build: .
     ports:
       - '8080:3001'
+      - '8076:3000'
     volumes:
       - './images:/usr/src/app/build/images'
