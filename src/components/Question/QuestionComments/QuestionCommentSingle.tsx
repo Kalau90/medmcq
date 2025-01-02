@@ -71,7 +71,7 @@ const QuestionCommentSingle: React.SFC<QuestionCommentSingleProps> = ({
           }}
         />
         <Comment.Actions>
-          {user && user.id === comment.user.id && (
+          {user && ((user.id === comment.user.id) || (user.role.id === 3)) && (
             <>
               {!deleting && (
                 <Comment.Action onClick={() => setDeleting(true)}>

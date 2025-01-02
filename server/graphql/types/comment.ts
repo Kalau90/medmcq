@@ -55,9 +55,17 @@ export const resolvers: Resolvers = {
       return { id: commentId };
     },
     deleteComment: async (root, { commentId }, ctx) => {
-      const comment = await QuestionComment.query()
-        .where({ id: commentId, userId: ctx.user.id })
-        .delete();
+      //console.log("Sending delete comment", commentId, ctx.user);
+      let comment;
+      if(ctx.user.roleId != 3){ // this is an editor
+        comment = await QuestionComment.query()
+          .where({ id: commentId, userId: ctx.user.id })
+          .delete();
+      }else{
+         comment = await QuestionComment.query()
+          .where({ id: commentId })
+          .delete();
+      }
       if (!comment) throw new Error('Comment not found');
       return 'Successfully deleted';
     },
@@ -95,7 +103,12 @@ export const resolvers: Resolvers = {
     },
     editComment: async (root, { data }, ctx) => {
       const { id, text, isPrivate, isAnonymous, questionId } = data;
-      const exists = await QuestionComment.query().findOne({ id, userId: ctx.user.id });
+      let exists;
+      if(ctx.user.roleId != 3){
+        exists = await QuestionComment.query().findOne({ id, userId: ctx.user.id });
+      }else{
+        exists = await QuestionComment.query().findOne({ id });
+      }
       if (exists) {
         const comment = await exists.$query().updateAndFetch({
           text,
