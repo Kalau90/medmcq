@@ -116,7 +116,35 @@ export const resolvers: Resolvers = {
       const semester = await ctx.semesterLoader.load(examSet.semesterId);
       const answers = await ctx.questionAnswersByQuestionLoader.load(questionId);
 
-      const msg = {
+      console.log("Hej", tagName, semester)
+
+      try{
+        // Create a new tag
+        const semesterId = semester.id;
+        const inst = await Tag.query().insert({
+          semesterId: semesterId,
+          name: tagName
+        })
+  
+        const tagId = inst.id;
+        console.log(tagId)
+
+        const questionId = question.id;
+        const userId = ctx.user?.id;
+
+        // Add that new tag to question tag votes
+        await QuestionTagVote.query().insert({
+          questionId: questionId,
+          userId: userId,
+          tagId: tagId,
+          value: 1
+        })
+      }catch(e){
+        console.log(e)
+      }
+      
+
+      /*const msg = {
         to: urls.issue,
         from: `AU MCQ-app <${urls.fromEmail}>`,
         subject: `Nyt tag foreslået: ${tagName}`,
@@ -135,7 +163,7 @@ export const resolvers: Resolvers = {
   `
       };
 
-      sgMail.send(msg);
+      sgMail.send(msg);*/
       return `Tag "${tagName}" has been suggested.`;
     }
   },

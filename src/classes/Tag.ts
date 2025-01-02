@@ -44,6 +44,16 @@ class Tag {
 
     await API.mutate('suggestTag', mutation, data);
   };
+
+  static create = async (data: { tagName: string; semesterId: number }) => {
+    const mutation = gql`
+      mutation($tagName: String!, $semesterId: Int!) {
+        createTag(tagName: $tagName, semesterId: $questionId)
+      }
+    `;
+
+    await API.mutate('createTag', mutation, data);
+  };
 }
 
 export default Tag;

@@ -56,8 +56,10 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   const tagVotes = question.tagVotes;
   const tags = useSelector(
     (state: ReduxState) =>
-      state.questions.questions[questionIndex].tagsInfo
-      //state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
+    {
+      //return state.questions.questions[questionIndex].tagsInfo
+      return state.metadata.semesters.find((semester) => semester.id === semesterId)?.tags
+    }
   );
   const user = useSelector((state: ReduxState) => state.auth.user);
   const [addingTagError, setAddingTagError] = useState('');
@@ -73,6 +75,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
   }, [question]);
 
   const suggestTag = async () => {
+    console.log("SUGGESTING SOM TAG!!", tags)
     if (tags.some((t) => t.name.toLowerCase() === newTag.trim().toLowerCase())) {
       return setAddingTagError('Tagget eksisterer allerede. Vælg det under menuen "+ Tilføj tag".');
     }
