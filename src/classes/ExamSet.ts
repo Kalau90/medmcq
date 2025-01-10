@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 import { ExamSet as ExamSetType } from 'types/generated';
 import API from './API.class';
 
-//interface ExamSet extends ExamSetType {}
+interface ExamSet extends ExamSetType {}
 
-class ExamSet implements ExamSetType{
+class ExamSet {
   static fragmentFull = gql`
     fragment ExamSet on ExamSet {
       id

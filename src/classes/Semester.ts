@@ -7,9 +7,9 @@ import Specialty from './Specialty';
 import Tag from './Tag';
 import { Semester as SemesterType } from 'types/generated';
 
-//interface Semester extends SemesterType {}
+interface Semester extends SemesterType {}
 
-class Semester implements SemesterType {
+class Semester {
   static fetchAll = async () => {
     const query = gql`
       query {

@@ -4,9 +4,9 @@ import { store } from 'IndexApp';
 import questionsReducer from 'redux/reducers/question';
 import { Comment as CommentType, CommentInput } from 'types/generated';
 
-//interface Comment extends CommentType {}
+interface Comment extends CommentType {}
 
-class Comment implements CommentType {
+class Comment {
   static fragmentFull = gql`
     fragment Comment on Comment {
       id

@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 import { Specialty as SpecialtyType } from 'types/generated';
 
-//interface Specialty extends SpecialtyType {}
+interface Specialty extends SpecialtyType {}
 
-class Specialty implements SpecialtyType{
+class Specialty {
   static fragmentFull = gql`
     fragment Specialty on Specialty {
       id
