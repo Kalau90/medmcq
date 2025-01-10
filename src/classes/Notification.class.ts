@@ -4,9 +4,9 @@ import API from './API.class';
 import { store } from 'IndexApp';
 import authReducer from 'redux/reducers/auth';
 
-interface Notification extends NotificationType {}
+//interface Notification extends NotificationType {}
 
-class Notification {
+class Notification implements NotificationType {
   static fragment = gql`
     fragment Notification on Notification {
       id

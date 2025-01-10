@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 import API from './API.class';
 import { Tag as TagType } from 'types/generated';
 
-interface Tag extends TagType {}
+//interface Tag extends TagType {}
 
-class Tag {
+class Tag implements TagType {
   static fragmentFull = gql`
     fragment Tag on Tag {
       id
