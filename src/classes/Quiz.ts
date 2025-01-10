@@ -6,9 +6,9 @@ import gql from 'graphql-tag';
 import API from './API.class';
 import { UserAnswerInput, QuestionFilterInput } from 'types/generated';
 
-interface Quiz {}
+interface IQuiz {}
 
-class Quiz {
+class Quiz implements IQuiz {
   static start = async (filter?: Partial<QuestionFilterInput>, examMode?: boolean) => {
     const reduxStore: ReduxState = store.getState() as any;
     const {

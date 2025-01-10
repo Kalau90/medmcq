@@ -4,9 +4,10 @@ services:
     env_file: .env.development
     environment:
       - NODE_ENV=production
-    restart: always
+    #restart: always
     build: .
     ports:
       - '8080:3001'
     volumes:
-      - './images:/usr/src/app/build/images'
+      #- './images:/usr/src/app/build/images'
+      - './:/usr/src/app'

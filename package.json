@@ -24,8 +24,14 @@
   "proxy": "http://localhost:3001",
   "author": "Morsby & Thomas",
   "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@sendgrid/mail": "^7.2.2",
     "@types/jsonwebtoken": "^8.5.0",
@@ -56,17 +62,17 @@
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "objection": "^2.2.18",
-    "react": "^16.13.1",
+    "react": "17",
     "react-copy-to-clipboard": "^5.0.2",
     "react-countdown": "^2.3.1",
-    "react-dom": "^16.13.1",
+    "react-dom": "17",
     "react-flagkit": "^1.0.2",
     "react-highlighter": "^0.4.3",
     "react-image-lightbox": "^5.1.1",
     "react-localize-redux": "^3.5.3",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "4",
     "react-swipeable": "^5.5.1",
     "react-toastify": "^6.0.8",
     "recharts": "^1.8.5",
@@ -76,12 +82,13 @@
     "styled-components": "^5.1.1",
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.9.7",
+    "typescript": "^5.7.2",
     "urql": "^1.9.8",
     "yup": "^0.29.2"
   },
   "devDependencies": {
     "@aarhus-university/au-designsystem-delphinus": "^0.24.1",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@graphql-codegen/cli": "^1.17.6",
     "@graphql-codegen/typescript": "^1.17.6",
     "@graphql-codegen/typescript-operations": "^1.17.6",
@@ -92,7 +99,6 @@
     "@types/dotenv-flow": "^3.0.0",
     "@types/express": "^4.17.7",
     "@types/helmet": "0.0.47",
-    "@types/jest": "^26.0.7",
     "@types/lodash": "^4.14.158",
     "@types/marked": "^1.1.0",
     "@types/moment-timezone": "^0.5.13",
@@ -111,8 +117,7 @@
     "cypress": "^4.11.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
-    "start-server-and-test": "^1.11.2",
-    "ts-jest": "^26.1.4"
+    "start-server-and-test": "^1.11.2"
   },
   "browserslist": {
     "production": [

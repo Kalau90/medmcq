@@ -116,7 +116,7 @@ export const resolvers: Resolvers = {
       const semester = await ctx.semesterLoader.load(examSet.semesterId);
       const answers = await ctx.questionAnswersByQuestionLoader.load(questionId);
 
-      console.log("Hej", tagName, semester)
+      //console.log("Hej", tagName, semester)
 
       try{
         // Create a new tag
@@ -127,7 +127,7 @@ export const resolvers: Resolvers = {
         })
   
         const tagId = inst.id;
-        console.log(tagId)
+        //console.log(tagId)
 
         const questionId = question.id;
         const userId = ctx.user?.id;

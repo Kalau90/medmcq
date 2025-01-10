@@ -15,7 +15,7 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import { LocalizeProvider } from 'react-localize-redux';
 
 // redux
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit'; // REMOVED: getDefaultMiddleware
 import rootReducer, { ReduxState } from 'redux/reducers';
 import ErrorBoundary from 'components/Misc/Utility/ErrorBoundary';
 
@@ -31,10 +31,12 @@ import './styles/scss/main.scss';
 // Lightbox css
 import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
+const nullAsAny: any = (null as any);
+
 const migrations: any = {
   10: (state: ReduxState) => ({
     ...state,
-    questions: null as any
+    questions: nullAsAny
   }),
   11: (state: ReduxState) => ({}),
   12: (state: ReduxState) => ({ ...state, shareBuilder: {} })
@@ -53,7 +55,7 @@ const pReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: pReducer,
-  middleware: getDefaultMiddleware({ serializableCheck: false }),
+  //middleware: getDefaultMiddleware({ serializableCheck: false }),
   devTools: { maxAge: 20 }
 });
 

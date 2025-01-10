@@ -4,9 +4,9 @@ import API from './API.class';
 import authReducer from 'redux/reducers/auth';
 import { User as UserType, LoginInput, UserInput, Bookmark } from 'types/generated';
 
-interface User extends UserType {}
+//interface User extends UserType {}
 
-class User {
+class User implements UserType {
   static login = async (data: LoginInput): Promise<User> => {
     const mutation = gql`
       mutation($data: LoginInput) {
