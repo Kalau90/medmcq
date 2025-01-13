@@ -10,7 +10,7 @@ const batchSpecialties = async (ids: number[]) => {
 };
 
 const batchTags = async (ids: number[]) => {
-  const tags = await Tag.query().findByIds(ids);
+  const tags = await Tag.query().where({ isRemoved: 0 }).findByIds(ids);
   return ids.map((id) => tags.find((tag) => tag.id === id));
 };
 

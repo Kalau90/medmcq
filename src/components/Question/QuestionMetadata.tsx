@@ -176,7 +176,7 @@ const QuestionMetadata: React.SFC<QuestionMetadataProps> = () => {
                 .orderBy('votes', 'desc')
                 .map((t) => {
                   console.log("I'm logging t",t)
-                  if (!t) return null;
+                  if (!t || t.name===null) return null;
                   const questionTagVotes = tagVotes.filter((tv) => tv.tag.id === t.id);
                   const votes = _.sumBy(questionTagVotes, (tv) => tv.vote);
 

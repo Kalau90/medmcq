@@ -5,6 +5,7 @@ interface Tag {
   name: string;
   semesterId: number;
   parentId: number;
+  isRemoved: number;
 }
 
 class Tag extends Model {

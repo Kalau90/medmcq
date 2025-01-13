@@ -110,16 +110,24 @@ export const resolvers: Resolvers = {
       let { n } = filter;
 
       if (!filter) throw new Error('No arguments for filter provided');
+
+      // This 'query' object will contain finished query for questions
       let query = Question.query();
 
+      // If this is a request for specific questionIds, then simply return these
       if (ids) return query.findByIds(ids);
+
+      // If shareId is present, resolve these
       if (shareId) {
         const shareObjs = await ShareLink.query().where({ shareId }).select('questionId');
         return query.findByIds(shareObjs.map((obj) => obj.questionId));
       }
+
+      // If commentIds is present, resolve these
       if (commentIds)
         return QuestionComment.query().findByIds(commentIds).select('questionId as id');
 
+      // Prepare query with examsets
       query = query
         .join('semesterExamSet as examSet', 'question.examSetId', 'examSet.id')
         .join('semester', 'examSet.semesterId', 'semester.id');
@@ -127,8 +135,10 @@ export const resolvers: Resolvers = {
         query = query.where('semester.id', '=', semesterId);
       }
 
-      // Specifics
+      // If examSetId is present, resolve this
       if (examSetId) return query.where('examSet.id', examSetId);
+
+      // If search is present, resolve this
       if (search)
         return query
           .join('questionAnswers', 'question.id', 'questionAnswers.questionId')
@@ -139,6 +149,7 @@ export const resolvers: Resolvers = {
             );
           });
 
+      // IF WE'RE DOWN HERE, THIS IS JUST A RANDOM SET OF QUESTIONS
       // Start filtering based on other values
       query = query.orderByRaw('rand()');
 
@@ -443,6 +454,18 @@ export const resolvers: Resolvers = {
           .where("id", t.tagId).select("name").limit(1)
         return { id: t.tagId, tagName: tagName }
       });
+      /*return tags.map(async (t) => {
+        let tagName = await Tag.query()
+          .where({ is_removed: 0 }) // Check that tag is NOT removed!
+          .andWhere("id", t.tagId).select("name").limit(1)
+        console.log("This is my tagname", tagName, t)
+        if(tagName){
+          return { id: t.tagId, tagName: tagName }
+        }else{
+          return undefined; // make 'undefined' if the tag is deleted
+        }
+        
+      }).filter(value => value !== undefined); // remove 'undefined' from the final arrays
       /*return specialties.map(async(s) => {
         let specialtyName = await Specialty.query()
           .where( "id", s.specialtyId ).select("name").limit(1)
@@ -457,6 +480,7 @@ export const resolvers: Resolvers = {
 
       let tags = await Tag.query()
         .whereIn( "id", tagsIds )
+        //.andWhere("is_removed", "=", 0) // OR HERE?
 
       return tags;
     },

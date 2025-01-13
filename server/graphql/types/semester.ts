@@ -71,7 +71,9 @@ export const resolvers: Resolvers = {
       return specialties.map((specialty) => ({ id: specialty.id }));
     },
     tags: async ({ id }) => {
-      const tags = await Tag.query().where({ semesterId: id });
+      const tags = await Tag.query()
+        .where({ semesterId: id })
+        .andWhere({ isRemoved: 0 });
       return tags.map((tag) => ({ id: tag.id }));
     }
   }
